@@ -210,4 +210,24 @@ Sys.setenv("plotly_username"="cmcgrat1")
 Sys.setenv("plotly_api_key"="AMSdPCyiiTrFagmA0DFz")
 api_create(plot3, filename = "10 Most Popular Languages")
 
+#displayed as a pie chart
+
+
+#Puts 10 most popular languages in table 
+allLanguages = sort(table(languages), increasing=TRUE)
+top10Languages = allLanguages[(length(allLanguages)-9):length(allLanguages)]
+
+#converts to dataframe
+languageDF = as.data.frame(top10Languages)
+
+#Plot the data frame of languages
+followerLanguagesPie = plot_ly(data = languageDF, values =~Freq, labels=languageDF$languages, type = "pie",
+                               textposition = 'inside', textinfo = 'label+percent', showlegend = FALSE) %>%
+  layout(title = 'Most popular lanuages',
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+followerLanguagesPie_link = api_create(followerLanguagesPie, filename = "followerLanguages")
+followerLanguagesPie_link
+
 
